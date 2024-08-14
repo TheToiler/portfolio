@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -18,42 +19,56 @@ import { ArticleService } from './article.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ArticlesComponent, ArticleButtonComponent],
+  imports: [RouterOutlet, ArticlesComponent, ArticleButtonComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  host: {
-    '[@startTransition]': 'isAnimating'
-  },
   animations: [
-    trigger('startTransition',
+    trigger('startTextTransition',
       [
-        state('start', style({opacity: 0})),
-        state('stop', style({opacity: 1})),
-        transition('start => stop', [ animate('1s')]),
-        transition('stop => start', [ animate('0.5s')]),
+        state('false', style({opacity: 0})),
+        state('true', style({opacity: 1})),
+        transition('* <=> *', [ animate('3s 0s ease-out')]),
       ]
-    )
-  ]
+    ),
+    trigger('startBgTransition',
+      [
+        state('false', style({opacity: 0, scale: 1})),
+        state('true', style({opacity: 1, scale: 1.125})),
+        transition('* <=> *', [ animate('3s 3s ease-out')]),
+      ]
+    ),
+ ]
 })
 export class AppComponent implements AfterViewInit {
   startAnimation: boolean = false;
-  isAnimating: boolean = false;
   articleShowing: boolean = false;
+  contactButtonClicked: boolean = false;
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, public articleService: ArticleService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, public articleService: ArticleService, private cdRef : ChangeDetectorRef) { 
+
+  }
 
   ngAfterViewInit(): void {
     this.document.body.className = ''
     this.startAnimation = true;
-    this.isAnimating = true;
+    this.cdRef.detectChanges();
   }
 
   onArticleSelect($event: boolean) {
     if ($event) {
-      this.document.body.className = "is-article-visible"
+      console.log('article selected. Contact button clicked: ', this.contactButtonClicked);
+      this.document.body.className = "is-article-visible";
+      this.contactButtonClicked = false;
     } else {
       this.document.body.className = ""
+      this.contactButtonClicked = false;
     }
+  }
+
+  onContactButtonClick() {
+    this.articleService.articleSelected.set({'id': 99, 'name': 'Contact', 'html': ''});
+    this.document.body.className = "is-article-visible"
+    this.contactButtonClicked = true;
   }
 }

@@ -40,38 +40,8 @@ export class ArticleService {
 			<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
 			<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
       `
-    },
-    {
-      id: 3,
-      name: 'Contact',
-      html: `
-			<h2 class="major">Contact</h2>
-			<form method="post" action="#">
-				<div class="fields">
-					<div class="field half">
-						<label for="name">Name</label>
-						<input type="text" name="name" id="name" />
-					</div>
-					<div class="field half">
-						<label for="email">Email</label>
-						<input type="text" name="email" id="email" />
-					</div>
-					<div class="field">
-						<label for="message">Message</label>
-						<textarea name="message" id="message" rows="4"></textarea>
-					</div>
-				</div>
-				<ul class="actions">
-					<li><input type="submit" value="Send Message" class="primary" /></li>
-					<li><input type="reset" value="Reset" /></li>
-				</ul>
-			</form>
-			<ul class="icons">
-				<li><a href="https://github.com/TheToiler" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-			</ul>
-			`
-		},
-  	];
+    }
+  ];
   articleSelected = signal<ArticleInterface | undefined>(undefined);
   articleSelectedHTML = computed<SafeHtml>(() => this.domSanitizer.bypassSecurityTrustHtml(this.articleSelected()!.html));
   

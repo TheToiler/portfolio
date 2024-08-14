@@ -18,6 +18,5 @@ export class ArticleButtonComponent {
   onArticleSelect() {
     this.articleService.articleSelected.set(this.article())
     this.articleSelected.emit(true);
-
   }
 }

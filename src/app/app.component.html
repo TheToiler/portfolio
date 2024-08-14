@@ -1,4 +1,4 @@
-<div [@startTransition]="startAnimation ? 'stop' : 'start'" id="wrapper">
+<div [@startTextTransition]="startAnimation"  id="wrapper">
 
 @if (articleService.articleSelected() === undefined) {
   <header id="header">
@@ -6,25 +6,24 @@
       <span class="icon fa-gem"></span>
     </div>
     <div class="content">
-      @if (isAnimating) {
         <div class="inner">
           <h1>Dimension</h1>
           <p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
           for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
         </div>      
-      }
     </div>
     <nav>
       <ul>
         @for (article of articleService.articleData; track article.id) {
           <app-article-button [article]="article" (articleSelected)="onArticleSelect($event)" />
         }
+        <li><a (click)="onContactButtonClick()">contact</a></li>
       </ul>
     </nav>
   </header>
 } @else {
   <div id="main">
-    <app-articles (articleSelected)="onArticleSelect($event)"></app-articles>
+    <app-articles [isContactForm]="contactButtonClicked" (articleSelected)="onArticleSelect($event)"></app-articles>
   </div>  
 }
 <footer id="footer">
@@ -33,4 +32,4 @@
 </div>
 
 
-<div id="bg"></div>
+<div [@startBgTransition]="startAnimation" id="bg"></div>

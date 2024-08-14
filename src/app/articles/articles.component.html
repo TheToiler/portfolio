@@ -1,4 +1,35 @@
-<article class="active">
-    <div [innerHTML]="articleService.articleSelectedHTML()"></div>
-    <div class="close" (click)="onCloseClick()">close</div>
-</article>
+@if (!isContactForm()) {
+    <article class="active">
+        <div [innerHTML]="articleService.articleSelectedHTML()"></div>
+        <div class="close" (click)="onCloseClick()">close</div>
+    </article>
+} @else {
+    <article class="active">
+        <h2 class="major">Contact</h2>
+        <form (ngSubmit)="onSubmitClick($event)">
+            <div class="fields">
+                <div class="field half">
+                    <label for="name">Name</label>
+                    <input [(ngModel)]="name" type="text" name="name" id="name" />
+                </div>
+                <div class="field half">
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="email" type="text" name="email" id="email" />
+                </div>
+                <div class="field">
+                    <label for="message">Message</label>
+                    <textarea [(ngModel)]="message" name="message" id="message" rows="4"></textarea>
+                </div>
+            </div>
+            <ul>
+                <li><input type="submit" value="Send Message" class="primary" /></li>
+                <li><input type="reset" value="Reset" /></li>
+            </ul>
+        </form>
+        <ul class="icons">
+            <li><a href="https://github.com/TheToiler" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+        </ul>
+        <div class="close" (click)="onCloseClick()">close</div>
+    </article>
+
+}
