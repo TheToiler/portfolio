@@ -6,7 +6,7 @@
 } @else {
     <article class="active">
         <h2 class="major">Contact</h2>
-        <form (ngSubmit)="onSubmitClick($event)">
+        <form (ngSubmit)="onSubmitClick()">
             <div class="fields">
                 <div class="field half">
                     <label for="name">Name</label>
@@ -21,7 +21,7 @@
                     <textarea [(ngModel)]="message" name="message" id="message" rows="4"></textarea>
                 </div>
             </div>
-            <ul>
+            <ul class="actions">
                 <li><input type="submit" value="Send Message" class="primary" /></li>
                 <li><input type="reset" value="Reset" /></li>
             </ul>

@@ -1,9 +1,9 @@
-<div [@startTextTransition]="startAnimation"  id="wrapper">
+<div [@startTextTransition]="startAnimation" id="wrapper">
 
 @if (articleService.articleSelected() === undefined) {
   <header id="header">
     <div class="logo">
-      <span class="icon fa-gem"></span>
+      <span class="icon fa-gem" (click)="onGemClick()"></span>
     </div>
     <div class="content">
         <div class="inner">
@@ -32,4 +32,4 @@
 </div>
 
 
-<div [@startBgTransition]="startAnimation" id="bg"></div>
+<div [@startBgTransition]="startAnimation" [@startArticleTransition]="startArticleAnimation" id="bg"></div>
